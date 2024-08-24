@@ -1,4 +1,3 @@
-using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,7 +8,7 @@ public class Pokemon
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
-     public int Numero { get; set; }
+    public int Numero { get; set; }
 
     [Required]
     public int RegiaoId { get; set; }
@@ -21,9 +20,8 @@ public class Pokemon
     [ForeignKey("GeneroId")]
     public Genero Genero { get; set; }
 
-
-    [Required(ErrorMessage = "Informe o nome ")]
-    [StringLength(30, ErrorMessage = "O nome deve possuir no máximo 30 caracteres")]
+    [Required(ErrorMessage = "Informe o Nome")]
+    [StringLength(30, ErrorMessage = "O Nome deve possuir no máximo 30 caracteres")]
     public string Nome { get; set; }
 
     [StringLength(1000)]
@@ -44,9 +42,5 @@ public class Pokemon
     public string Animacao { get; set; }
 
     public ICollection<PokemonTipo> Tipos { get; set; }
-    
 
-
-
-
-}  
+}

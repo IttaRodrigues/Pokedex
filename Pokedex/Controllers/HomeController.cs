@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Pokedex.Data;
 using Pokedex.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Pokedex.Controllers;
 
@@ -13,12 +14,16 @@ public class HomeController : Controller
     public HomeController(ILogger<HomeController> logger, AppDbContext context)
     {
         _logger = logger;
-        _context= context;
+        _context = context;
     }
 
     public IActionResult Index()
     {
-        return View();
+        List<Pokemon> pokemons = _context.Pokemons
+            .Include(p => p.Tipos)
+            .ThenInclude(pt => pt.Tipo)
+            .ToList();
+        return View(pokemons);
     }
 
     public IActionResult Privacy()
