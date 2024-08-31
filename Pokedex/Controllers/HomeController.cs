@@ -44,9 +44,15 @@ public class HomeController : Controller
             DetailsVM details = new()
             {
                 Atual = pokemon,
+                Anterior = _context.Pokemons
+                .OrderByDescending(p => p.Numero)
+                .FirstOrDefault(p => p.Numero < id),
+                Proximo = _context.Pokemons
+                .OrderBy (p => p.Numero)
+                .FirstOrDefault(p => p.Numero > id)
             };
           
-        return View (pokemon);
+        return View (details);
     }
 
     public IActionResult Privacy()
